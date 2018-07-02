@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../battery/bespeak/css/bespeak.css" />
+</head>
+
+<body id="modifyBattery-form">
+    <div class="aui-content" style="padding-bottom:2rem;">
+        <ul class="aui-list aui-list-noborder">
+            <li class="aui-list-item aui-margin-b-10">
+                <div class="aui-list-item-inner aui-list-item-arrow aui-padded-t-15 aui-padded-b-15" onclick="jumpUrl.chooseshoplist({urlstats:'modify_battery'})">
+                    <div class="aui-list-item-title">更换门店：</div>
+                    <div class="aui-list-item-right mendian aui-padded-t-5 aui-padded-b-5">
+                        <h4 style="font-weight:bold;">
+                            <span v-text="shopName">电动车服务店</span> （<span v-text="shopNo">Z0038</span>）
+                        </h4>
+                        <p v-text="shopAddress">郑州市金水区农业南路11号商鼎中心B区临街商铺B1173号</p>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-b-10">
+                <div class="aui-list-item-inner aui-padded-t-10 aui-padded-b-10">
+                    <div class="aui-list-item-title">更换电池型号：</div>
+                    <div class="aui-list-item-right">
+                        <span v-text="batteryName">6020锂电</span>
+                        <span v-text="groupNum">1</span>组
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" style="background-size: 100% 0px;">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" v-if="overdeposit < 0">退还押金：</div>
+                    <div class="aui-list-item-title" v-else>补缴押金：</div>
+                    <div class="aui-list-item-right">
+                        <span class="price" v-text="overdeposit_abs | currency '¥' '2' ">￥0.00</span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" style="background-size: 100% 0px;">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title" v-if="overrent < 0">退还租金：</div>
+                    <div class="aui-list-item-title" v-else>补缴租金：</div>
+                    <div class="aui-list-item-right">
+                        <span class="price" v-text="overrent_abs | currency '¥' '2' ">￥0.00</span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item" style="background-size: 100% 0px;">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">手续费：</div>
+                    <div class="aui-list-item-right">
+                        <span class="price" v-text="fee | currency '¥' '2' ">￥0.00</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="">
+        <div class="aui-content-padded">
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-sm" onclick="saveBtn()">
+                <span class="aui-pull-left">•</span>提交<span class="aui-pull-right">•</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/modifyBattery.js"></script>
+
+</html>

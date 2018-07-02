@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>问题详情</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/details.css">
+</head>
+
+<body>
+  <!-- <header class="aui-bar aui-bar-nav" id="aui-header">
+      <a class="aui-btn aui-pull-left" tapmode onclick="closeWin()">
+          <span class="aui-iconfont aui-icon-left"></span>返回
+      </a>
+      <div class="aui-title">问题详情</div>
+  </header> -->
+  <div class="aui-content" id="details-frm" v-cloak>
+      <ul class="aui-media-list">
+          <li class="aui-list-item">
+              <div class="aui-list-item-inner">
+                  <div class="aui-list-item-title aui-font-size-18" style="text-align:center;">
+                      <span v-text="details_data.title">您的店铺正在开展“预约服务返积分”活动</span>
+                  </div>
+                  <p class="aui-margin-t-10 aui-font-size-16" v-text="details_data.content" style="text-indent:1rem;padding:1rem;">您的店铺正在开展“预约服务返积分”活动</p>
+              </div>
+              <div class="aui-info  aui-padded-t-0 aui-padded-r-15">
+                  <div class="aui-info-item aui-font-size-12"></div>
+                  <div class="aui-info-item aui-font-size-12"><span v-text="details_data.addtime">2017-08-21 12:00</span></div>
+              </div>
+          </li>
+          <!-- <li class="aui-list-item">
+              <div class="aui-list-item-inner">
+                  <div class="aui-list-item-title aui-font-size-18">您的店铺正在开展“预约服务返积分”活动</div>
+                  <p class="aui-ellipsis-2">
+                      活动说明：2017-08-01 至 2017-09-01到店完成预约服务后，该用户可获取积分
+                  </p>
+              </div>
+              <div class="aui-info  aui-padded-t-0 aui-padded-r-15">
+                  <div class="aui-info-item aui-font-size-12"></div>
+                  <div class="aui-info-item aui-font-size-12">2017-08-21</div>
+              </div>
+          </li> -->
+      </ul>
+      <!-- <div class="aui-margin-10" style="height:30px;line-height: 30px;text-align: center;">
+          <span v-text="moredatatxt">暂无更多记录</span>
+      </div> -->
+  </div>
+</body>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/details.js"></script>
+
+</html>

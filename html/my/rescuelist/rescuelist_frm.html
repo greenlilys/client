@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>救援订单</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/rescuelist.css">
+</head>
+
+<body id="rescuelist-frm">
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-margin-t-15" v-if="BatteryOrder_data.batteryOrderList.length<1">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="" style="line-height: 1rem;text-align: center;">
+                        暂无记录
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="aui-list aui-media-list">
+            <li class="aui-list-item aui-margin-b-15" v-for="item in BatteryOrder_data.batteryOrderList">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">
+                                <span v-text="item.addtime">2017-08-21 12:00</span>
+                            </div>
+                            <div class="aui-list-item-right">
+                                <span>救援费用：</span>
+                                <span class="price" v-text="item.cost | currency '¥ ' '2'">￥8.5</span>
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text" style="border-top: 1px solid #eee;">
+                            <div class="aui-list-item-media aui-col-xs-3 aui-text-center " style="width: 4rem;">
+                                <img :src="item.photo?item.photo:'images/gril.jpg'" class="aui-img-round">
+                            </div>
+                            <div class="aui-list-item-inner aui-col-xs-3 aui-text-center ">
+                                <div class="aui-list-item-text ">
+                                    <div class="aui-font-size-14">
+                                        <span class="" v-text="item.name">小李快修 电动车服务店</span>
+                                        <br>
+                                        <span class="" v-text="item.cellphone">13546489464</span>
+                                        <span class="" style="margin-left:1rem;" @click="settelsBtn(item)"><i class="aui-iconfont aui-icon-phone" style="font-size: 1.2rem;"></i></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="aui-list-item-inner aui-col-xs-6 aui-text-center ">
+                                <div>(距离：<span class="" v-text="item.distance">1.70</span>KM)</div>
+                                <span class="price" v-text="item.faulttype"></span><br>
+                                <!-- orderstate订单状态 0：未支付 1：已支付 -->
+                                <span class="">订单状态：</span>
+                                <!-- <span class="price" v-if="item.orderstate == 0">待维修</span> -->
+                                <!-- //istakestate订单生效 0：网点撤销订单   1：网点接受订单 2：等待网点操作 3：用户撤销订单-->
+                                <span v-if="item.orderstate == 1">订单已完成</span>
+                                <span v-if="item.istakestate == 3">订单已撤销</span>
+                                <span v-if="item.istakestate == 0">网点撤销订单</span>
+                                <span v-if="item.orderstate == 0 && item.istakestate == 1">网点已接单</span>
+                                <span v-if="item.orderstate == 0 && item.istakestate == 2">等待网点接单</span>
+                                <!-- <span class="price" v-if="item.orderstate == 3">未完成</span> -->
+                                <br>
+                                <button style="background:#62b701;color:#ffffff;border:1px solid #62b701;" v-if="item.istakestate == 1 && item.orderstate == 0" @click="jumphelpDetails(item)">支付订单</button>&nbsp;&nbsp;
+                                <!-- <button style="background:#ff7010;color:#ffffff;border:1px solid #ff7010;" v-if="item.istakestate == 1 && item.orderstate == 3" @click="jumphelpDetails(item)">支付里程费</button> -->
+                                <button style="background:#ff7010;color:#ffffff;border:1px solid #ff7010;" v-if="item.istakestate != 0 && item.istakestate != 3 && item.istakestate !=1" @click="cancelOrder(item)">撤销订单</button>
+
+                                <!-- <br>
+                                <span class="price" v-if="item.istakestate == 0">网点撤销订单,重新下单</span>
+                                <span class="price" v-if="item.orderstate == 0 && item.istakestate == 1">网点已接单,救援中</span>
+                                <span v-if="item.orderstate == 0 && item.istakestate == 2">等待网点接单</span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-margin-10" style="height:30px;line-height: 30px;text-align: center;">
+            <span v-text="moredatatxt">暂无记录</span>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="../../assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="js/rescuelist.js"></script>

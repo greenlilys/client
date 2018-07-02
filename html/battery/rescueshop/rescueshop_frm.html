@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>救援详情</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/rescueshop.css">
+</head>
+
+<body id="rescueshop-frm">
+    <div class="aui-content" style="margin-bottom:2.25rem;">
+        <ul class="aui-list aui-media-list aui-list-noborder">
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 4rem;height:4.2rem">
+                        <div id="averta"><img :src="selectShop_data.photo?selectShop_data.photo:'images/gril.jpg'"></div>
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">
+                                <span v-text="name">小李快修 电动车服务店</span>
+                            </div>
+                            <!-- <div class="aui-list-item-right">
+                        {{selectShop_data.score}} 星
+                        </div> -->
+                        </div>
+                        <div class="aui-list-item-text">
+                            天牛网授权店 {{selectShop_data.no}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14" v-text="alladdress">
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text price">
+                            <span>距离 {{shopdistance}} 公里</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                            <!-- <h3 class="price aui-border" style="width: 6rem; background: #7ec32f; color:#fff;" @click="openSelect()">选择救援类型</h3> -->
+                            <div class="aui-text-center aui-padded-5" tapmode style="width: 6rem; background: #7ec32f; color:#fff;" @click="openSelect">选择救援类型</div>
+                            <ul class="aui-list aui-margin-t-15 aui-border">
+                                <li class="aui-list-item">
+                                    <div class="aui-list-item-inner price">
+                                        救援类型：{{help}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;救援花费：{{price}}
+                                    </div>
+                                </li>
+                            </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item border-dotted">
+                <div class="aui-list-item-inner">
+                    <ul class="aui-padded-15 aui-row" style="width:100%;">
+                      <div class="aui-row aui-row-padded">
+                          <div class="aui-pull-left aui-font-size-16 price">
+                              联系电话：
+                          </div>
+                          <div class="aui-pull-right">
+                             <input id="phoneNum" class="aui-border" type="tel" maxlength="11" v-model="cellphone" style="line-height:22px;height:22px;width:winWidth / 3;text-align:center;" placeholder="点击输入您的电话" oninput="changephone()">
+                          </div>
+                      </div>
+                        <!-- <li class="aui-col-xs-12 aui-padded-5" @click="settelsBtn">
+                          <div class="aui-text-center price">
+                            <div class="block-around">
+                                <i class="aui-iconfont aui-icon-phone" style="font-size: 1.2rem;"></i>
+                            </div>
+                            <div class="aui-margin-t-5">联系网点</div>
+                          </div>
+                        </li> -->
+                        <!-- <li class="aui-col-xs-12 aui-padded-5" @click="userbmapxyBtn">
+                            <div class="aui-text-center price">
+                                <div class="block-around">
+                                    <i class="aui-iconfont aui-icon-location" style="font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="aui-margin-t-5">店铺位置</div>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-content aui-padded-15">
+            <h3 class="aui-text-center">救援说明</h3>
+            <p class="aui-margin-t-10 price">1. 里程费的计算方法：起步价{{startingPrice}}元(包含一公里)，超出一公里之外按照每公里{{unitPrice}}元计算。</p>
+            <p class="aui-margin-t-10">2. 提交救援单前，请确认故障类型情况，以便网点救援人员携带对应设备、配件进行救援。</p>
+            <p class="aui-margin-t-10">3. 拖车救援价格是里程费X2来计算的。</p>
+            <p class="aui-margin-t-10">4. 其他救援，用户只需在APP上支付里程费，维修费用需和网点救援人员沟通。</p>
+            <p class="aui-margin-t-10">5. 提交救援单后，请与网点沟通是否接单，具体位置，以便救援人员能够及时赶到实施救援。</p>
+            <p class="aui-margin-t-10">6. 确认救援完成后，支付费用时完全是在APP进行线上交易，若网点线下加收别的费用，请拒绝支付（除其他救援外）并拨打平台400电话说明情况。</p>
+            <p class="aui-margin-t-10">7. 若网点救援完成之后未达到您的预期效果，请拨打平台400电话，客服人员介入这次救援为您解决问题。</p>
+        </div>
+    </div>
+    <footer class="aui-bar aui-bar-tab">
+        <div class="aui-bar-tab-item aui-text-left aui-padded-15" tapmode style="width: auto;">
+            <p>总花费：
+                <span class="price" v-text="all_pay | currency '¥ ' '1'">￥8.5</span>
+            </p>
+        </div>
+        <div class="aui-bar-tab-item aui-padded-12" tapmode style="width: 6rem; background: #d6d6d6; color:#fff; position:absolute;top:0;right:0;" onclick="noIphone()">下单</div>
+
+        <button id ="payBtn" tapmode type="button" v-if="all_pay && iscan" onclick="saveBtn()">下单</button>
+    </footer>
+</body>
+
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/rescueshop.js"></script>
+
+</html>

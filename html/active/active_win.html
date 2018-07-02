@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>天牛活动</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css">
+    <style>
+        .border-t,
+        .border-b{ position:relative;  }
+        .border-t:before,
+        .border-b:after{     content: '';     position: absolute;     left: 0;  top:0;     background: #ddd;   right:0;    height: 1px;     -webkit-transform: scaleY(0.5);             transform: scaleY(0.5);     -webkit-transform-origin: 0 0;             transform-origin: 0 0; }
+        .border-b:after{ top:auto; bottom:0;  }
+        .flex-wrap{ display: -webkit-box;	display: -webkit-flex;	display: flex; }
+        .flex-con{     -webkit-box-flex: 1;     -webkit-flex: 1;    flex: 1;}
+        .flex-vertical{ -webkit-box-orient: vertical;-webkit-flex-flow: column;flex-flow: column;}
+        .flex-horizontal{ -webkit-box-orient: horizontal;-webkit-flex-flow: row;flex-flow: row;}
+        body{
+          background:#F5F5F5;
+          padding-top:70px;
+        }
+        #content header.aui-bar{
+          background:#7EC32F;
+          position:fixed;
+        }
+      #itemBox{
+        margin:0 auto;
+        width:86%;
+          justify-content: center;
+      }
+        #item{
+          background:#fff;
+          margin-top:1rem;
+          border-radius: 5px;
+        }
+        .time{
+          height:1.5rem;
+          line-height: 1.5rem;
+          font-size:0.6rem;
+          color:#C2C5CA;
+          text-align: center;
+        }
+        .imgBox{
+          width:100%;
+          font-size: 0;
+          height: 8rem;
+        }
+        .imgBox img{
+          display: inline-block;
+          width:100%;
+          height:100%;
+        }
+        .titleBox{
+          padding:0 .6rem;
+        }
+        .titleBox h1{
+          line-height:1.8rem;
+          font-size:0.8rem;
+          text-align: justify;
+        }
+
+        .details{
+          height:1.6rem;
+          line-height:1.6rem;
+          font-size:0.7rem;
+          justify-content: space-between;
+        }
+        .details i.aui-icon-right{
+          color:#ddd;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        #content .aui-bar{
+          font-size:0.74rem;
+        }
+    </style>
+</head>
+
+<body id="content" v-cloak>
+    <header class="aui-bar aui-bar-nav">天牛活动</header>
+    <div id="itemBox" class="flex-wrap flex-vertical">
+        <div id="item" v-for="item in activeInfoList" @click="navToDetails(item.id)">
+            <div class="time">{{item.addtime}}</div>
+            <div>
+                <div class="imgBox"><img src="{{item.url[0] ? item.url[0] : dafault}}" alt=""></div>
+                <div class="titleBox">
+                    <h1>{{item.title}}</h1>
+                    <div class="details flex-wrap flex-horizontal border-t"><span>查看详情</span><i class="aui-iconfont aui-icon-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../assets/js/api.js"></script>
+<script type="text/javascript" src="../assets/js/common.js"></script>
+<script type="text/javascript" src="../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="./js/active.js"></script>
+</html>

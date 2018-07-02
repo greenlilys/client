@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/common.css" />
+</head>
+
+<body>
+  <div id="editBirthday-frm">
+    <div class="aui-content">
+      <ul class="aui-list aui-form-list aui-list-custom">
+          <li class="aui-list-item">
+              <div class="aui-list-item-inner">
+                  <div class="aui-list-item-label">
+                      出生日期:
+                  </div>
+                  <div class="aui-list-item-input ">
+                      <input id="dataSelect" type="text" placeholder="1980-01-01" readonly="readonly" v-text="">
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+    <div class="aui-padded-b-15">
+        <div class="aui-content-padded" v-on:click="editBirthdayInfo">
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-sm">
+                <span class="aui-pull-left">•</span>提交<span class="aui-pull-right">•</span>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="../../../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/iScroll.js"></script>
+<script type="text/javascript" src="../js/Mdate.js"></script>
+<script type="text/javascript" src="../js/editBirthday.js"></script>

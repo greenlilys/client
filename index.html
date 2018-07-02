@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="./css/aui.css" />
+    <style>
+        html,body {height: 100%;}
+        .hover {opacity: .8;}
+        .flex-wrap {display: -webkit-box; display: -webkit-flex;display: flex;}
+        .flex-con {-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;}
+        .flex-vertical {-webkit-box-orient: vertical;-webkit-flex-flow: column;flex-flow: column;flex-diretion: column;}
+        .border-t,.border-b {position: relative;}
+        .border-t:before,.border-b:after {content: '';position: absolute;left: 0;top: 0;background: #ddd;right: 0;height: 1px;-webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);-webkit-transform-origin: 0 0;transform-origin: 0 0;}
+        .border-b:after {top: auto;bottom: 0;}
+        #wrap {height: 100%;}
+        #footer {background-color: #f2f2f2;color: #747474;}
+        #footer ul li {padding-top: 32px;padding-bottom: 4px;background: url() no-repeat center 4px;background-size: auto 22px;text-align: center;font-size:0.6rem;}
+        #footer ul li.active {color: #7DC51C;}
+        #footer ul li:nth-child(1) {background-image: url(./image/home.png);}
+        #footer ul li:nth-child(2) {background-image: url(./image/prize.png);}
+        #footer ul li:nth-child(3) {background-image: url(./image/shop.png);}
+        #footer ul li:nth-child(4) {background-image: url(./image/my.png);}
+        #footer ul li:nth-child(1).active {background-image: url(./image/home_active.png);}
+        #footer ul li:nth-child(2).active {background-image: url(./image/prize_active.png);}
+        #footer ul li:nth-child(3).active {background-image: url(./image/shop_active.png);}
+        #footer ul li:nth-child(4).active {background-image: url(./image/my_active.png);}
+        .flex-con {overflow: auto}
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <div id="main" class="flex-con"></div>
+        <div id="footer" class="border-t">
+            <ul class="flex-wrap">
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active">网点</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">天牛活动</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">天牛商城</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con">我的</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        // 初始化页面
+        initFrameGroup();
+        // 初始化极光推送
+        var ajpush = api.require('ajpush');
+        ajpush.init(function(ret) {
+            if (ret && ret.status) {
+                //success
+                // alert("初始化了极光推送!");
+            }
+        });
+
+        //设置应用启动的状态下,"消息"类型推送不自动弹出通知到手机状态栏监听,将直接交给该监听的回调函数
+        ajpush.setListener(
+            function(ret) {
+                var id = ret.id;
+                var title = ret.title;
+                var content = ret.content;
+                var extra = ret.extra;
+            }
+        );
+        //移除消息监听
+        // ajpush.removeListener();
+
+        //监听通知被点击事件
+        api.addEventListener({
+            name: 'appintent'
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret.appParam.ajpush.content));
+            }
+        });
+
+        api.addEventListener({
+            name: 'pause'
+        }, function(ret, err) {
+            ajpush.onPause(); //监听应用进入后台，通知jpush暂停事件
+        });
+
+        api.addEventListener({
+            name: 'resume'
+        }, function(ret, err) {
+            ajpush.onResume(); //监听应用恢复到前台，通知jpush恢复事件
+        });
+
+        api.setStatusBarStyle({
+            style: 'light'
+        });
+        api.parseTapmode();
+        api.addEventListener({
+            name: 'indexinit'
+        }, function(ret, err) {
+          api.setFrameGroupIndex({
+              name: 'indexGroup',
+              index: 0,
+              scroll: true
+          });
+          var eFootLis = $api.domAll('#footer li');
+          for(var i = 0,len=eFootLis.length;i<len; i++){
+              $api.removeCls(eFootLis[i], 'active');
+          };
+          $api.addCls(eFootLis[0], 'active');
+            var arrs = ["btop_bgcolor_frm","bmap_info_frm","bmap_appointinfo_frm","bmap_iconcenter_frm","bmap_sos_frm"];
+            // 悬窗显示
+            arrs.forEach(function(item,index,array){
+              api.setFrameAttr({
+                  name: item,
+                  hidden: false
+              });
+            });
+            api.sendEvent({
+                name: 'setf5loadEvent',
+            });
+        });
+    };
+    // 初始化页面
+    function initFrameGroup(){
+      var footer_h = $api.offset($api.byId('footer')).h;
+      api.openFrameGroup({
+          name: 'indexGroup',
+          scrollEnabled: false,
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: api.frameHeight - footer_h
+          },
+          index: 0,
+          preload: 0,
+          frames: [{
+              name: 'home',
+              url: web_url + 'openmap/openmap_win.html',
+              bounces: false,
+              reload: true,
+              progress: {
+                  type: "page"
+              }
+          }, {
+              name: 'active',
+              url: web_url + 'active/active_win.html',
+              bounces: false,
+              vScrollBarEnabled: false,
+              progress: {
+                  type: "page"
+              }
+          }, {
+              name: 'shop',
+              url: web_url + 'shop/shop_win.html',
+              bounces: false,
+              vScrollBarEnabled: false,
+              progress: {
+                  type: "page"
+              }
+          }, {
+              name: 'my',
+              url: web_url + 'my/my_win.html',
+              bounces: false,
+              vScrollBarEnabled: false,
+              progress: {
+                  type: "page"
+              }
+          }]
+      }, function(ret, err) {
+
+      });
+
+    }
+    // 随意切换按钮
+    function randomSwitchBtn(tag) {
+        if (tag == $api.dom('#footer li.active')) return;
+        var eFootLis = $api.domAll('#footer li'),
+            index = 0;
+        for (var i = 0; i < eFootLis.length; i++) {
+            if (tag == eFootLis[i]) {
+                index = i;
+            } else {
+                $api.removeCls(eFootLis[i], 'active');
+            }
+        }
+        $api.addCls(eFootLis[index], 'active');
+        api.setFrameGroupIndex({
+            name: 'indexGroup',
+            index: index,
+            scroll: true
+        });
+
+        // 用户公告状态栏->affiche-frm 状态栏颜色->btop_bgcolor_frm 租期逾期状态栏->bmap_info_frm  电池预约状态窗口->bmap_appointinfo_frm
+        //左侧按钮->bmap_iconcenter_frm 右侧按钮->bmap_sos_frm
+        var arr = ["affiche-frm","btop_bgcolor_frm","bmap_info_frm","bmap_appointinfo_frm","bmap_iconcenter_frm","bmap_sos_frm","birthdayAct-frm"];
+          // 隐藏导航地图页的浮动窗口
+        if (index > 0) {
+            //用户公告状态栏
+            arr.forEach(function(item,index,array){
+              api.setFrameAttr({
+                  name: item,
+                  hidden: true
+              });
+            })
+        }
+          // 显示导航地图页的浮动窗口
+        if (index == 0) {
+          arr.forEach(function(item,index,array){
+            api.setFrameAttr({
+                name: item,
+                hidden: false
+            });
+          })
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>打开二维码大图</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/openqrcode_img.css">
+</head>
+
+<body>
+    <div id="content">
+        <div id="imgBox" ontouchstart="touchstart()" ontouchend="touchend()" ontouchmove="touchmove()">
+            <img :src="imgUrl" id="img">
+            <div class="descrip border-t">
+                每推荐一位新注册用户，新用户完成安装使用后，推荐人每次可获得2000天牛币，新用户可获得1000天牛币。
+            </div>
+        </div>
+        <div class="warn">长按图片可以保存到手机或分享到朋友圈</div>
+        <div class="closeFrames" onclick="close_Winiframs()">
+            <i class="aui-iconfont aui-icon-close icon-close"></i>
+        </div>
+        <div class="sheetList">
+          <div class="item">
+            <ul>
+              <li class="border-b" onclick="obj.saveImg()">保存图片</li>
+              <li class="border-b" onclick="obj.shareImg()">分享推广二维码到朋友圈</li>
+              <li onclick="obj.shareWebPage()">分享推广注册页面到朋友圈</li>
+            </ul>
+          </div>
+          <div class="quxiao" onclick="quxiao()">
+            取消
+          </div>
+        </div>
+        <div class="bgcolor" onclick="quxiao()"></div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript">
+var obj = {};
+
+var vm = new Vue({
+  el:"#content",
+  data:{
+    imgUrl:"",
+    userPhone:""
+  }
+})
+var sheetListHeight = $api.dom('.sheetList').offsetHeight;
+$('.sheetList').css("bottom","-" + sheetListHeight + "px");
+apiready = function() {
+  console.log(api.pageParam.userPhone);
+  api.parseTapmode();
+  vm.imgUrl = api.pageParam.imgUrl;
+  vm.userPhone = api.pageParam.userPhone;
+  obj.saveImg = saveImg;
+  obj.shareImg = shareImg;
+  obj.shareWebPage = shareWebPage;
+  var savaName = "tnerweima.png";
+   var wx = api.require('wx');
+  // 保存二维码图片
+       function saveImg() {
+           api.download({
+               url: vm.imgUrl,
+               savePath: 'fs://' + savaName,
+               report: true,
+               cache: true,
+               allowResume: true
+           }, function(ret, err) {
+               if (ret.state == 1) {
+                   //下载成功
+                 var path = ret.savePath;
+                 api.saveMediaToAlbum({
+                     path: path
+                 }, function(ret, err) {
+                     if (ret && ret.status) {
+                       quxiao();
+                      toast('保存成功');
+
+                     } else {
+                        toast('保存失败');
+                     }
+                 })
+               } else {
+                   toast('保存失败');
+               }
+           });
+       }
+ //分享二维码图片到朋友圈
+       function shareImg(){
+        api.download({
+          url: vm.imgUrl,
+          savePath: 'fs://' + savaName,
+          report: true,
+          cache: true,
+          allowResume: true
+        },function(ret, err){
+           if (ret.state == 1) {
+             var shareImgUrl = ret.savePath;
+              //检测是否安装了微信客户端
+             wx.isInstalled(function(ret, err) {
+                 if (ret.installed) {
+                 wx.shareImage({
+                     apiKey: '',
+                     scene: 'timeline',
+                     thumb: '',
+                     contentUrl: shareImgUrl
+                 }, function(ret, err) {
+                     if (ret.status) {
+                       quxiao();
+                         toast('分享成功');
+
+                     } else {
+                         toast('分享失败');
+                     }
+                 });
+                 } else {
+                     toast("当前设备未安装微信客户端");
+                 }
+             });
+
+           }else{
+                   toast({
+               msg:err.msg,
+               location:'middle'
+             })
+           }
+        })
+       }
+
+       //分享注册链接到朋友圈
+        function shareWebPage() {
+           wx.isInstalled(function(ret, err) {
+             //检测是否安装了微信客户端
+               if (ret.installed) {
+                   wx.shareWebpage({
+                       apiKey: '',
+                       scene: 'timeline',
+                       title: '天牛网注册链接',
+                       description: '推广注册链接',
+                       thumb: 'widget://image/logo.jpg',
+                       contentUrl: "http://www.tianniu.net.cn:8082/users/userRegister?iPhone=" + vm.userPhone
+                   }, function(ret, err) {
+                       if (ret.status) {
+                           toast('分享成功');
+                       } else {
+                           toast('分享失败');
+                       }
+                   });
+               } else {
+                   toast("当前设备未安装微信客户端");
+               }
+           });
+       }
+}
+
+function quxiao(){
+  $(".sheetList").css("bottom","-" + sheetListHeight + "px");
+  $(".bgcolor").css("display","none");
+}
+
+
+var timeoutEvent = 0;
+// 开始按
+function touchstart() {
+    // alert("touchstart事件");
+    // 清楚定时器
+    clearTimeout(timeoutEvent);
+    // 设置定时器，定义长按800毫秒触发长按时间，
+    timeoutEvent = setTimeout("longpress()",800);
+    return false;
+}
+// 手释放，如果在800毫秒内释放，则取消长按事件，此时执行单击事件
+function touchend() {
+    // 清楚定时器
+    clearTimeout(timeoutEvent);
+    if (timeoutEvent != 0) {
+      // 执行单击事件
+
+    }
+}
+// 如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+function touchmove() {
+  // 清楚定时器
+  clearTimeout(timeoutEvent);
+  timeoutEvent = 0;
+}
+// 长按事件
+function longpress() {
+  timeoutEvent = 0;
+  //执行长按事件
+  $(".sheetList").css("bottom",0);
+  $(".bgcolor").css("display","block");
+}
+
+function close_Winiframs() {
+    api.setFrameAttr({
+        name: 'openqrcode_img',
+        hidden: true
+    });
+}
+</script>

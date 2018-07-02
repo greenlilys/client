@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+  <link rel="stylesheet" type="text/css" href="./sign.css">
+  <title>签到成功</title>
+</head>
+<body>
+<div id="content" v-cloak>
+  <div class="showimg">
+    <img src="../../../image/signs.png" class="headtitle">
+    <div class="textBox">      
+      <div class="signDay">您已连续签到<span>{{signnumber}}</span>天</div>
+      <div class="getMoney">恭喜您获得<span>{{integral}}</span>天牛币</div>
+    </div>
+
+    <div class="closeBox">
+        <i class="aui-iconfont aui-icon-close icon-close" @click="closeShowimg"></i>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script>
+var vm = new Vue({
+  el:"#content",
+  data:{
+    signnumber:"",
+    integral:""
+  },
+  methods:{
+    closeShowimg:function(){
+      api.setFrameAttr({
+          name: 'sign_fra.html',
+          hidden: true
+      });
+    }
+  }
+})
+  apiready = function(){
+    console.log(JSON.stringify(api.pageParam));
+    vm.signnumber = api.pageParam.signnumber;
+    vm.integral = api.pageParam.integral;
+
+  }
+</script>
+
+</body>
+</html>

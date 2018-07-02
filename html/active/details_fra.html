@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <link rel="stylesheet" type="text/css" href="../../css/aui.css">
+  <title>Document</title>
+  <style>
+  body{
+    background:#fff;
+  }
+  [v-cloak] {
+      display: none;
+  }
+.textContent{
+    text-align: justify;
+    padding:1rem 1rem 0 1rem;
+    font-size:0.8rem;
+    line-height: 1.2rem;
+    background:#fff;
+}
+  </style>
+</head>
+<body>
+  <div class="detailsBox" v-cloak>
+    <div>
+      <img src="{{masmap}}" class="imgMain">
+      <div class="textContent">{{content}}</div>
+    </div>
+
+  </div>
+  <script type="text/javascript" src="../assets/js/api.js"></script>
+  <script type="text/javascript" src="../assets/js/common.js"></script>
+  <script type="text/javascript" src="../assets/js/vue.min.js"></script>
+  <script type="text/javascript" src="./js/details_fra.js"></script>
+</body>
+</html>

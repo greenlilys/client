@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>生日礼物信息</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/common.css">
+</head>
+
+<body>
+  <div class="aui-content" id="birthGift_frm">
+    <section class="aui-content-padded">
+        <div class="aui-card-list">
+            <!-- <div class="aui-card-list-header aui-text-center" style="display: block;">生日快乐</div> -->
+            <div class="aui-card-list-content-padded">
+              <img src="images/tn-logo.png" alt="">
+            </div>
+            <div class="aui-card-list-footer" style="">
+              亲爱的{{nickname}}，生日快乐！</br>天牛网赠予您{{birthdayGift}}天牛币作为生日礼物！
+            </div>
+        </div>
+    </section>
+    <div class="aui-padded-15">
+        <div class="aui-content-padded">
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-sm" @click="receiveBtn" v-if="birthdayGiftState==0">
+                <span class="aui-pull-left">•</span>点击领取<span class="aui-pull-right">•</span>
+            </div>
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-sm aui-btn-disable" v-else>
+                <span class="aui-pull-left">•</span>已领取<span class="aui-pull-right">•</span>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/js/api.js"></script>
+<script type="text/javascript" src="../assets/js/common.js"></script>
+<script type="text/javascript" src="../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/birthGift_frm.js"></script>
+
+</html>

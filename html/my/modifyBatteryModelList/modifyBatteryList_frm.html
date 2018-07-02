@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>更换电池型号订单记录</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css">
+    <link rel="stylesheet" type="text/css" href="">
+</head>
+
+<body id="modifyBatteryList-frm" v-cloak>
+    <div class="aui-content" style="padding-bottom:3rem;">
+        <ul class="aui-list aui-margin-t-15" v-if="BatteryOrder_data.batteryOrderList.length<1">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="" style="line-height: 1rem;text-align: center;">
+                        暂无记录
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="aui-list aui-margin-t-15" v-else v-for="item in BatteryOrder_data.batteryOrderList" @click="jumpOrderInfo(item.id)">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <!-- <div class="aui-list-item-title" style="line-height: 1rem;">
+                        订单编号：<span v-text="item.no">TN25413314</span>
+                    </div>
+                    <div class="aui-list-item-right">
+                      <span v-text="item.addtime">2017-08-21 12:00</span>
+                    </div> -->
+                    <div class="aui-list-item-title">
+                      订单时间：<span v-text="item.addtime">2017-08-21 12:00</span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        <div class="aui-margin-10 grey">
+                            <div class="aui-font-size-14 price">
+                                <span v-if="item.state==0">网点审核中</span>
+                                <span v-if="item.state==1 && item.paystate == 0">待支付订单</span>
+                                <span v-if="item.state==1 && item.paystate == 1">待安装电池</span>
+                                <span v-if="item.state==2">网点取消</span>
+                                <span v-if="item.state==3">已完成</span>
+                                <span v-if="item.state==4">用户撤销</span>
+                                <span v-if="item.state==5">订单已取消</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-right price">
+                        <span>详情</span>
+                        <!-- <button style="background:#ff7010;color:#ffffff;border:1px solid #ff7010;" v-if="item.state==0 && item.paystate == 0" @click="cancelOrder(item)">撤销订单</button>
+                        <button style="background:#62b701;color:#ffffff;border:1px solid #62b701;" v-if="item.state==1 && item.paystate == 0" @click="jumpOrderInfo(item.id)">支付订单</button>
+                        <span v-if="item.state == 2 || item.state == 3 || item.state == 4 || item.state == 5 || (item.state == 1 && item.paystate == 1)"  @click="jumpOrderInfo(item.id)">详情</span> -->
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-margin-10" style="height:30px;line-height: 30px;text-align: center;">
+            <span v-text="moredatatxt">暂无记录</span>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/modifyBatteryList.js"></script>
+
+</html>

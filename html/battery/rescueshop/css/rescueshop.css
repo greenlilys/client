@@ -1,0 +1,24 @@
+.aui-list .aui-list-item{
+    background-image: none;
+}
+.border-dotted{
+    border-top: 1px dotted #eee;
+}
+.block-around{
+    width: 2rem;
+    height:2rem;
+    border: 1px solid #ff7010;
+    border-radius: 50%;
+    margin: 0 auto;
+    line-height: 2rem;
+}
+#payBtn{
+  outline: none;width: 6rem; background: #7ec32f; color:#fff; position:absolute;top:0;right:0;border:none;padding:0;border-radius: 0;
+  font-size:1rem;height:100%;width:6rem;
+}
+#averta{
+  width:100%;height:100%;border-radius:50%;overflow:hidden;
+}
+#averta img{
+  display:inline-block;font-size0;width:100%;height:100%;border-radius50%;
+}

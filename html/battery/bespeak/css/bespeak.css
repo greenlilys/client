@@ -1,0 +1,46 @@
+.aui-list {
+    background-color: #f5f5f5;
+}
+
+.aui-list .aui-list-item {
+    background-color: #fff;
+}
+
+.aui-list .aui-list-item-right,
+.aui-list-item-title-row em {
+    max-width: 70%;
+    text-align: right;
+}
+
+.aui-list .mendian {
+    text-align: left;
+}
+
+.zq-block {
+    display: block;
+    padding: 0 0.6rem;
+    line-height: 1.7rem;
+    border: 1px solid #7ec32f;
+    border-radius: 0.2rem;
+    color: #7ec32f;
+}
+
+.zq-block.active {
+    background: #7ec32f;
+    color: #fff;
+}
+.pColor{
+  margin-bottom:0.5rem;
+  padding:0.5rem 0;
+}
+.pColor p{
+  color: #ff7010;
+  text-align: left;
+
+}
+#bespeak-form footer.aui-bar-tab{
+  background:#F5F5F5;
+}
+footer div{
+  background:#fff;
+}

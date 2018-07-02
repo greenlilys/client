@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/bespeak.css">
+</head>
+
+<body id="bespeak-form">
+    <div class="aui-content" style="padding-bottom:5rem;">
+        <ul class="aui-list aui-list-noborder">
+            <li class="aui-list-item aui-margin-b-10">
+                <div class="aui-list-item-inner aui-list-item-arrow aui-padded-t-10 aui-padded-b-10" onclick="jumpUrl.chooseshoplist()">
+                    <div class="aui-list-item-title">退还门店：</div>
+                    <div class="aui-list-item-right mendian aui-padded-t-5 aui-padded-b-5">
+                        <h4 style="font-weight:bold;">
+                            <span v-text="selectAppointInfo.name">电动车服务店</span> （<span v-text="selectAppointInfo.shopno">Z0038</span>）
+                        </h4>
+                        <h4 v-text="selectAppointInfo.shopsAddress">郑州市金水区农业南路11号商鼎中心B区临街商铺B1173号</h4>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-b-10">
+                <div class="aui-list-item-inner aui-padded-t-10 aui-padded-b-10">
+                    <div class="aui-list-item-title">退还电池型号：</div>
+                    <div class="aui-list-item-right">
+                        <span v-text="selectAppointInfo.batteryname">6020锂电</span>
+                        <span v-text="selectAppointInfo.groupnum">1</span>组
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-margin-b-10">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">预约到店时间</div>
+                    <div class="aui-list-item-right clearfix aui-padded-t-10 aui-padded-b-10">
+                        <div class="zq-block fl aui-margin-l-5 aui-margin-b-5" :class="{'active':(item.time==timerange)}" v-for="item in selectAppointInfo.bespeakTime" @click="bespeakTimeBtn($index)">
+                            <span v-text="item.time">2</span>
+                            <span v-if="item.time >= 10">分钟到店退还</span>
+                            <span v-if="item.time < 10">小时到店退还</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <!-- unpaidlatefee 为逾期滞纳金额 -->
+        <template v-if="!selectAppointInfo.unpaidlatefee>0">
+      <ul class="aui-list aui-list-noborder">
+      <li class="aui-list-item" style="background-size: 100% 0px;">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-title">退还租金：</div>
+              <div class="aui-list-item-right">
+                  <span class="price" v-text="selectAppointInfo.rent | currency '¥ ' '2' ">￥0.00</span>
+              </div>
+          </div>
+      </li>
+      </ul>
+    </template>
+    </div>
+
+    <footer class="aui-bar aui-bar-tab">
+        <div class="aui-padded-l-15 aui-font-size-14 aui-margin-t-10 pColor">
+            <p>退租说明:</p>
+            <p>1.退租时，当前租期的月租金将不再退还，后续租金按月退还。</p>
+            <p>2.未到达租期，提前退租时，已使用各月租金将按照标准月租费用扣减。（6020:111元/月，7020:117元/月）</p>
+            <p>3.到达门店完成退电后，退还租金将返还至您的钱包。</p>
+            <p>4.月租金按31天周期计算。</p>
+        </div>
+        <div style="width:100%;background:#fff;padding:0.5rem 0;">
+            <div class="aui-btn aui-btn-primary aui-btn-block aui-btn-sm" onclick="saveBtn()" style="width:90%;margin:0 auto;">
+                <span class="aui-pull-left">•</span>立即预约<span class="aui-pull-right">•</span>
+            </div>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" src="../../assets/js/api.js"></script>
+<script type="text/javascript" src="../../assets/js/zepto.min.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js"></script>
+<script type="text/javascript" src="../../assets/js/vue.min.js"></script>
+<script type="text/javascript" src="js/battery_isrent.js"></script>
+
+</html>
