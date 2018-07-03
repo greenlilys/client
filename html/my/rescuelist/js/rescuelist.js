@@ -28,7 +28,7 @@ var vm = new Vue({
             batteryOrderList: [], //商品列表
         },
         operation: {},
-        moredatatxt:'',
+        moredatatxt:'暂无更多记录',
         pageSize: 5,
         pageNo: 1,
         totalPage: 0, //总页数
@@ -97,7 +97,7 @@ var vm = new Vue({
               });
             }
         },
-        // 获取  救援订单 列表
+        // 获取  救援订单 列表 没有做分页
         getselectBatteryOrder: function(status) {
             apps.axget(
                 "rescue/selectRescueList", {
@@ -105,40 +105,7 @@ var vm = new Vue({
                     pageSize: vm.pageSize,
                 },
                 function(data) {
-                    // alert(JSON.stringify(data));
-                    vm.BatteryOrder_data.batteryOrderList.splice(0,vm.BatteryOrder_data.batteryOrderList.length);
                     vm.BatteryOrder_data.batteryOrderList = data;
-                    // if (data.totalPage <= 1 || vm.pageNo == data.totalPage) {
-                    //     vm.moredatatxt = "暂无更多记录";
-                    // } else {
-                    //     vm.moredatatxt = "上滑获取更多记录";
-                    // }
-                    // if (vm.pageNo == 1) {
-                    //     vm.BatteryOrder_data.batteryOrderList = [];
-                    //     data.datas.forEach(function(item) {
-                    //         if (item) {
-                    //             // 预约中的时候-倒计时
-                    //             if (item.state == 0) {
-                    //
-                    //             }
-                    //             vm.BatteryOrder_data.batteryOrderList.push(item);
-                    //         }
-                    //     });
-                    //     vm.totalPage = data.totalPage; //总页数
-                    // } else {
-                    //     //第二页
-                    //     //如果存在数据并且当前的页面小于等于总页码时push
-                    //     if (data.datas.length && vm.pageNo <= data.totalPage) {
-                    //         data.datas.forEach(function(item) {
-                    //             // 预约中的时候-倒计时
-                    //             if (item.state == 0) {
-                    //
-                    //             }
-                    //             vm.BatteryOrder_data.batteryOrderList.push(item);
-                    //         });
-                    //     }
-                    // }
-                    // vm.pageNo++;
                 });
         },
         //可以操作救援下单
@@ -230,7 +197,8 @@ apiready = function() {
         }
     }, function(ret, err) {
         if (vm.pageNo <= vm.totalPage) {
-            vm.getselectBatteryOrder();
+          setTimeout('vm.getselectBatteryOrder()',10);
+            // vm.getselectBatteryOrder();
         }
     });
 

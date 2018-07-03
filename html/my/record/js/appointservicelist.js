@@ -99,7 +99,8 @@ apiready = function() {
         }
     }, function(ret, err) {
         if (vm.pageNo <= vm.totalPage) {
-            vm.getselectBatteryOrder(vm.tabbtnnum);
+          setTimeout('vm.getselectBatteryOrder(vm.tabbtnnum)',10);
+            // vm.getselectBatteryOrder(vm.tabbtnnum);
         }
     });
 

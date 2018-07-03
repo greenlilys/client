@@ -46,19 +46,12 @@ var vm = new Vue({
                         vm.moredatatxt = "上滑获取更多记录";
                     }
                     if (vm.pageNo == 1) {
-                        vm.BatteryOrder_data.batteryOrderList = [];
-                        data.datas.forEach(function(item) {
-                            if (item) {
-                                vm.BatteryOrder_data.batteryOrderList.push(item);
-                            }
-                        });
+                        vm.BatteryOrder_data.batteryOrderList = data.datas;
                         vm.totalPage = data.totalPage; //总页数
                     } else {
                         //如果存在数据并且当前的页面小于等于总页码时push
                         if (data.datas.length && vm.pageNo <= data.totalPage) {
-                            data.datas.forEach(function(item) {
-                                vm.BatteryOrder_data.batteryOrderList.push(item);
-                            });
+                            vm.BatteryOrder_data.batteryOrderList = vm.BatteryOrder_data.batteryOrderList.concat(data.datas);
                         }
                     }
                     vm.pageNo++;
@@ -82,7 +75,7 @@ apiready = function() {
         }
     }, function(ret, err) {
         if (vm.pageNo <= vm.totalPage) {
-            vm.getselectBatteryOrder();
+          setTimeout('vm.getselectBatteryOrder()',10);
         }
     });
 

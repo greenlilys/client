@@ -8,6 +8,8 @@ var vm = new Vue({
       init:function(){
         apps.axget("userPlatformNoticeController/selectUserNoticeList", "", function(data) {
             vm.activeInfoList = data;
+            // console.log(JSON.stringify(vm.activeInfoList));
+
         });
 
       },
@@ -25,7 +27,7 @@ var vm = new Vue({
                 masmap: masmap,
                 content: content
             }, false);
-            console.log(JSON.stringify(vm.activeInfoList));
+
         },
         getFormatDate: function(date) {
             var date = new Date(date);
@@ -33,12 +35,8 @@ var vm = new Vue({
             var seperator2 = ":";
             var month = date.getMonth() + 1;
             var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
+            month = month <= 9 ? '0' + month : month;
+            strDate = strDate <= 9 ? '0' + strDate : strDate;
             var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
             return currentdate;
         }
@@ -55,7 +53,6 @@ var vm = new Vue({
                         urlList.splice(j, 1);
                     }
                 }
-                urlList.length = 1;
                 list[i].url = urlList;
             }
         }

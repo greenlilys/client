@@ -17,12 +17,12 @@ var jumpUrl = {}; //跳转页面
         // 前端服务器IP
         'web_url': 'widget://html/',
         /** 测试服务器后台 */
-        'serviceIP': 'http://47.100.250.162:8081/',
+        // 'serviceIP': 'http://47.100.250.162:8081/',
           /** 本地服务器后台 */
         // 'serviceIP': 'http://192.168.0.105:8080/',
         // 'serviceIP': 'http://192.168.0.220:80/',
 	      /** 生产环境 */
-        // 'serviceIP': 'http://www.tianniu.net.cn/',
+        'serviceIP': 'http://www.tianniu.net.cn/',
         // 分享页面
         'h5share_url': 'sharetianniuuser/leasing/leasing.html'
     };

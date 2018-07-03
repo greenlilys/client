@@ -78,7 +78,7 @@ apiready = function() {
         }
     }, function(ret, err) {
         if (vm.pageNo <= vm.totalPage) {
-          setTimeout('getselectBatteryOrder()',10);
+          setTimeout('vm.getselectBatteryOrder()',10);
             // vm.getselectBatteryOrder();
         }
     });
